@@ -1,0 +1,38 @@
+name: Build Papers
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      papers: ${{ steps.find.outputs.papers }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: find
+        run: |
+          files=$(find papers -maxdepth 2 -name 'paper.tex' | sort | jq -R -s -c 'split("\n")[:-1]')
+          echo "papers=$files" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: discover
+    if: needs.discover.outputs.papers != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        paper: ${{ fromJson(needs.discover.outputs.papers) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile ${{ matrix.paper }}
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: ${{ matrix.paper }}
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-${{ strategy.job-index }}
+          path: "**/*.pdf"
