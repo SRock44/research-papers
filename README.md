@@ -8,12 +8,11 @@ a research blog with a build system.
 
 ## Papers
 
-| Date | Paper | Summary |
+| Date | Paper | Abstract |
 |---|---|---|
-| 2026-07 | [Calibrated Ensemble Learning for Outcome Prediction](papers/calibrated-ensemble-learning-for-outcome-prediction/) ([PDF](papers/calibrated-ensemble-learning-for-outcome-prediction/paper.pdf)) | The modeling strategy, full mathematics, and measured results behind a live, gradient-boosted ensemble for binary outcome prediction: an Elo-based strength prior, recency weighting, a stacked XGBoost/LightGBM/CatBoost ensemble with a learned meta-learner, variance-preserving isotonic calibration, and a feature pipeline that rescales its sample-size assumptions across datasets of very different sizes. |
+| 2026-07 | **Calibrated Ensemble Learning for Outcome Prediction** ([PDF](papers/calibrated-ensemble-learning-for-outcome-prediction/paper.pdf), [.tex](papers/calibrated-ensemble-learning-for-outcome-prediction/paper.tex)) | Strategy, math, and results behind a gradient-boosted ensemble for binary outcome prediction: an Elo strength prior, recency-weighted training, a stacked XGBoost/LightGBM/CatBoost ensemble with a learned meta-learner, variance-preserving isotonic calibration, and a feature pipeline rescaled to each dataset's sample size. Log-loss 0.6418–0.6624, 86.7% accuracy on highest-confidence predictions (n=1,520). |
 
-New papers are added to `papers/` as they're finished — see individual
-paper directories for abstracts, build instructions, and citation info.
+New papers are added to `papers/` as they're finished.
 
 ## Repo structure
 
@@ -22,7 +21,6 @@ papers/
   <paper-slug>/
     paper.tex     — self-contained LaTeX source (IEEEtran, inline figures, inline bibliography)
     paper.pdf     — compiled PDF
-    README.md     — abstract, build instructions, citation
 ```
 
 Every paper is a single, self-contained `.tex` file — no external image
